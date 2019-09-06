@@ -20,3 +20,10 @@ def set_states(model, states):
   variables = get_state_variables(model)
   for variable, state in zip(variables, states):
     variable.assign(state)
+
+def apply_regularization(model, r):
+  names = [weight.name for layer in model.layers for weight in layer.weights]
+  weights = model.get_weights()
+
+  weights = [weight * (1 - r) if "bias" not in name else weight for name, weight in zip(names, weights)]
+  model.set_weights(weights)
