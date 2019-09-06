@@ -30,4 +30,14 @@ def graph_stuff(x, title="", ema_alpha=0.1):
   plt.plot(mean, color=col, linestyle="dashed")
   #plt.show()
 
-#TODO: add weight vis
+def viz_weights(weights, filename):
+  fig = plt.figure()
+  weights = np.concatenate([x.flatten() for x in weights])
+  sq = int(np.ceil(np.sqrt(len(weights))))
+  sqsq = sq * sq
+  weights = np.concatenate([weights, np.zeros(sqsq-len(weights))])
+  weights = np.reshape(weights, (sq, sq))
+
+  sns.heatmap(weights)
+  plt.savefig(filename)
+  plt.close(fig)
