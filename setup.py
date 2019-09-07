@@ -5,6 +5,7 @@ setup(name='ml_utils',
   install_requires = [
     'matplotlib',
     'tensorflow',
-    'numpy'
+    'numpy',
+    'seaborn'
   ],
   packages=find_packages())
