@@ -53,7 +53,8 @@ def graph_stuff(x, title="", smoothness=0.1):
 
 def save_plot(x, name, smoothness=0.1, q=0):
   fig = plt.figure()
-  graph_stuff(x, title=name, smoothness=smoothness)
+  #graph_stuff(x, title=name, smoothness=smoothness)
+  graph_stuff_ema(x, title=name, ema_alpha=smoothness)
   lower = np.quantile(x, q)
   upper = np.quantile(x, 1-q)
   plt.ylim(lower, upper)
