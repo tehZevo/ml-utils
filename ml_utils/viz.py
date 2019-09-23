@@ -36,16 +36,14 @@ def graph_stuff(x, title="", smoothness=0.1):
 
   plt.title(title)
 
-  count = int(np.floor(x.shape[1] * smoothness))
+  count = int(np.ceil(x.shape[1] * smoothness))
   offset_xs = [i + count - 1 for i in range(x.shape[1] - count + 1)]
-  print(offset_xs)
   for i in range(x.shape[0]):
     data = x[i]
     col = "C{}".format(i % 10)
     plt.plot(data, color=col, alpha = 0.25, label=None)
     mean = np.mean(rolling_window(data, count), -1)
-    std = np.std(rolling_window(data, count), -1, ddof=1)
-    print(mean.shape, std.shape, len(offset_xs))
+    std = np.std(rolling_window(data, count), -1, ddof=0) #=/
 
     plt.fill_between(offset_xs, mean + std, mean - std, color=col, alpha=0.25)
     plt.plot(offset_xs, mean, color=col, label=i)#, linestyle="dashed")
