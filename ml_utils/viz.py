@@ -27,7 +27,7 @@ def rolling_window(a, window):
   strides = a.strides + (a.strides[-1],)
   return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
 
-def graph_stuff(x, title="", smoothness=0.1):
+def graph_stuff(x, title="", smoothness=0.1, draw_raw=True):
   x = np.array(x)
   if x.ndim == 1:
     x = np.expand_dims(x, 0)
@@ -41,7 +41,8 @@ def graph_stuff(x, title="", smoothness=0.1):
   for i in range(x.shape[0]):
     data = x[i]
     col = "C{}".format(i % 10)
-    plt.plot(data, color=col, alpha = 0.25, label=None)
+    if draw_raw:
+      plt.plot(data, color=col, alpha = 0.25, label=None)
     mean = np.mean(rolling_window(data, count), -1)
     std = np.std(rolling_window(data, count), -1, ddof=0) #=/
 
