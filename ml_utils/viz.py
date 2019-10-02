@@ -42,7 +42,7 @@ def graph_stuff(x, title="", smoothness=0.1, draw_raw=True):
     data = x[i]
     col = "C{}".format(i % 10)
     if draw_raw:
-      plt.plot(data, color=col, alpha = 0.25, label=None)
+      plt.plot(data, color=col, alpha = 0.1, label=None)
     mean = np.mean(rolling_window(data, count), -1)
     std = np.std(rolling_window(data, count), -1, ddof=0) #=/
 
@@ -55,7 +55,7 @@ def graph_stuff(x, title="", smoothness=0.1, draw_raw=True):
 def save_plot(x, name, smoothness=0.1, q=0, draw_raw=True):
   fig = plt.figure()
   #graph_stuff(x, title=name, smoothness=smoothness)
-  graph_stuff_ema(x, title=name, ema_alpha=smoothness, draw_raw)
+  graph_stuff_ema(x, title=name, ema_alpha=smoothness, draw_raw=draw_raw)
   lower = np.quantile(x, q)
   upper = np.quantile(x, 1-q)
   plt.ylim(lower, upper)
@@ -63,7 +63,7 @@ def save_plot(x, name, smoothness=0.1, q=0, draw_raw=True):
   plt.close(fig)
 
 #old EMA based version
-def graph_stuff_ema(x, title="", ema_alpha=0.1):
+def graph_stuff_ema(x, title="", ema_alpha=0.1, draw_raw=True):
   x = np.array(x)
   if x.ndim == 1:
     x = np.expand_dims(x, 0)
@@ -75,7 +75,8 @@ def graph_stuff_ema(x, title="", ema_alpha=0.1):
   for i in range(x.shape[0]):
     data = x[i]
     col = "C{}".format(i % 10)
-    plt.plot(data, color=col, alpha = 0.25, label=None)
+    if draw_raw:
+      plt.plot(data, color=col, alpha = 0.25, label=None)
     mean, variance = ema(data, ema_alpha)
 
     plt.fill_between(range(len(mean)), mean + variance, mean - variance, color=col, alpha=0.25)
