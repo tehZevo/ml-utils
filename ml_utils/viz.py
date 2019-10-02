@@ -52,10 +52,10 @@ def graph_stuff(x, title="", smoothness=0.1, draw_raw=True):
   if x.shape[0] > 1:
     plt.legend()
 
-def save_plot(x, name, smoothness=0.1, q=0):
+def save_plot(x, name, smoothness=0.1, q=0, draw_raw=True):
   fig = plt.figure()
   #graph_stuff(x, title=name, smoothness=smoothness)
-  graph_stuff_ema(x, title=name, ema_alpha=smoothness)
+  graph_stuff_ema(x, title=name, ema_alpha=smoothness, draw_raw)
   lower = np.quantile(x, q)
   upper = np.quantile(x, 1-q)
   plt.ylim(lower, upper)
