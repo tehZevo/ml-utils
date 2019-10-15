@@ -8,7 +8,7 @@ def dense_stack(input_size, output_size, hidden_sizes=[32, 32], rnn=None,
     #TODO: dont force batch shape here
     inputs = tf.keras.layers.Input(batch_shape=(1, input_size))
   else:
-    inputs = tf.keras.layers.Input(input_shape=(input_size,))
+    inputs = tf.keras.layers.Input(shape=(input_size,))
   x = inputs
   x = tf.keras.layers.Flatten()(x)
   if rnn is not None:
