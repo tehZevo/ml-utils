@@ -46,7 +46,7 @@ def graph_stuff(x, title="", smoothness=0.1, draw_raw=True):
     mean = np.mean(rolling_window(data, count), -1)
     std = np.std(rolling_window(data, count), -1, ddof=0) #=/
 
-    plt.fill_between(offset_xs, mean + std, mean - std, color=col, alpha=0.25)
+    plt.fill_between(offset_xs, mean + std, mean - std, color=col, alpha=0.10)
     plt.plot(offset_xs, mean, color=col, label=i)#, linestyle="dashed")
 
   if x.shape[0] > 1:
@@ -76,10 +76,10 @@ def graph_stuff_ema(x, title="", ema_alpha=0.1, draw_raw=True):
     data = x[i]
     col = "C{}".format(i % 10)
     if draw_raw:
-      plt.plot(data, color=col, alpha = 0.25, label=None)
+      plt.plot(data, color=col, alpha = 0.10, label=None)
     mean, variance = ema(data, ema_alpha)
 
-    plt.fill_between(range(len(mean)), mean + variance, mean - variance, color=col, alpha=0.25)
+    plt.fill_between(range(len(mean)), mean + variance, mean - variance, color=col, alpha=0.10)
     plt.plot(mean, color=col, label=i)#, linestyle="dashed")
 
   if x.shape[0] > 1:
